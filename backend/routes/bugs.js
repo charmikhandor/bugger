@@ -55,8 +55,7 @@ router.put("/updatebug/:id", fetchuser, async (req, res) => {
     if (description) {
       newBug.description = description;
     }
-    if(tag){
-
+    if (tag) {
       newBug.tag = tag;
     }
     //finding the bug

@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const TeamSchema = new Schema({
-    teamcode:{
-        type: String,
-        required: true,
-        unique: true,
-    },
+  teamcode: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   title: {
     type: String,
     required: true,

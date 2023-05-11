@@ -23,7 +23,7 @@ const UserSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "team",
   },
-  teamrole:{
+  teamrole: {
     type: String,
     default: "member",
   },
