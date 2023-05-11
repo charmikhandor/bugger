@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "a4ff0e56-b3cb-411a-a944-3ec7ed93700a",
+    "colName": "bugger",
+    "created": "2023-04-16T12:36:20.219Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "551de9d5-9057-4319-9f81-0ef76ad9b8c8",
+        "name": "auth",
+        "containerId": "",
+        "created": "2023-04-16T12:36:26.581Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "ff32b730-8bd0-4bef-ad76-a29e82ba26b8",
+        "name": "bugs",
+        "containerId": "",
+        "created": "2023-04-16T14:55:55.719Z",
+        "sortNum": 20000
+      }
+    ]
+  }
+]

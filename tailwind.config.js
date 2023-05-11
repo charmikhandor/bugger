@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content:["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-    colors:{
+      colors: {
         "light-text": "#e2f0f2",
         "dark-text": "#2d2730",
         "light-orange": "#ec8f89",
@@ -11,11 +11,14 @@ module.exports = {
         "dark-background": "#141a2a",
         "light-green": "#3abda6",
         "dark-green": "#233b44",
+      },
+      backgroundImage: {
+        "hero-pattern": "url('bg.jpg')",
+      },
+      screens: {
+        xs: "450px",
+      },
     },
-    backgroundImage: {
-      'hero-pattern': "url('background.jpg')",
   },
   plugins: [],
-}
-  }}
-
+};
