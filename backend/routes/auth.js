@@ -113,4 +113,77 @@ router.post("/getuser", fetchuser, async (req, res) => {
     res.send("internal error ");
   }
 });
+
+//Get loggein user details using POST"/api/auth/updateuser" Login required
+router.put(
+  "/updateuser",
+  fetchuser,
+  [
+    body("username", "Enter a valid name").isLength({ min: 3 }),
+    body("password", "Password must be atleast 5 characters").isLength({
+      min: 5,
+    }),
+  ],
+  async (req, res) => {
+    let success = false;
+    //if there are errors, return bad req and errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      const { username, password } = req.body;
+      const salt = await bcrypt.genSalt(10);
+      const secPass = await bcrypt.hash(password, salt);
+      const newUser = {};
+      if (username) {
+        newUser.username = username;
+      }
+      if (password) {
+        newUser.password = secPass;
+      }
+
+      const userId = req.user.id;
+      let user = await User.findById(userId);
+      user = await User.findByIdAndUpdate(
+        userId,
+        { $set: newUser },
+        { new: true }
+      );
+
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authtoken = jwt.sign(data, JWT_sec);
+      success = true;
+      res.json({ success, authtoken });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500);
+      res.send("internal error ");
+    }
+  }
+);
+
+//Get loggein user details using DELETE"/api/auth/deleteuser" Login required
+router.delete("/deleteuser", fetchuser, async (req, res) => {
+  let success = false;
+  //if there are errors, return bad req and errors
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const userId = req.user.id;
+    let user = await User.findById(userId);
+    user = await User.findByIdAndDelete(userId);
+    res.json({ success: "user has been deleted" });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500);
+    res.send("internal error ");
+  }
+});
 module.exports = router;

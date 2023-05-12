@@ -2,14 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const BugSchema = new Schema({
-  team: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "team",
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-  },
   title: {
     type: String,
     required: true,
@@ -17,14 +9,39 @@ const BugSchema = new Schema({
   description: {
     type: String,
   },
-  tag: {
+  priority: {
     type: String,
-    default: "General",
+    enum: ["High", "Medium", "Low"],
+    required: true,
   },
 
-  date: {
+  status: {
+    type: String,
+    enum: ["New", "Assigned", "In Progress", "Testing", "Resolved"],
+    required: true,
+    default: "New",
+  },
+  assignedTo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
+  createdAt: {
     type: Date,
     default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
+  project: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "project",
+    required: true,
   },
 });
 

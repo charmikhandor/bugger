@@ -12,8 +12,7 @@ app.use(express.json());
 //Available routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/bugs", require("./routes/bugs"));
-
-
+app.use("/api/projects", require("./routes/projects"));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
