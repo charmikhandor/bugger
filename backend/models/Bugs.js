@@ -28,4 +28,4 @@ const BugSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("note", BugSchema);
+module.exports = mongoose.model("bug", BugSchema);

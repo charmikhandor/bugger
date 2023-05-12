@@ -89,7 +89,7 @@
     "_id": "b357de52-6560-428c-9982-8893d2e47428",
     "colId": "a4ff0e56-b3cb-411a-a944-3ec7ed93700a",
     "containerId": "ff32b730-8bd0-4bef-ad76-a29e82ba26b8",
-    "name": "add note",
+    "name": "add bug",
     "url": "http://127.0.0.1:5000/api/bugs/addbug",
     "method": "POST",
     "sortNum": 60000,

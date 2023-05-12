@@ -13,9 +13,7 @@ app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/bugs", require("./routes/bugs"));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
