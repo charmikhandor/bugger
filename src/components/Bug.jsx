@@ -9,7 +9,8 @@ function Bug({ isMobile }) {
   const bug = useGLTF("./free_lowpoly_ladybug/scene.gltf");
   return (
     <mesh>
-      <ambientLight intensity={1} />
+      <ambientLight intensity={0.1} />
+      <directionalLight color="red" position={[0, 0, 5]} />
       <hemisphereLight intensity={1} groundColor="black" />
       <spotLight
         //scale={2.5} position-y={0} rotation-y={0} />
@@ -19,10 +20,9 @@ function Bug({ isMobile }) {
         intensity={10}
         castShadow
         shadow-mapSize={1024}
-        
       />
-      <pointLight intensity={3}/>
-      <primitive object={bug.scene} scale={3} position={[0, -5, -1]} />
+      
+      <primitive object={bug.scene} scale={2.8} position={[0, -1.97, 0]} />
     </mesh>
   );
 }
@@ -67,9 +67,8 @@ const BugCanvas = () => {
           minPolarAngle={Math.PI / 2}
         />
 
-          <Bug isMobile={isMobile} />
-        
-        </Suspense>
+        <Bug isMobile={isMobile} />
+      </Suspense>
       <Preload all />
     </Canvas>
   );
