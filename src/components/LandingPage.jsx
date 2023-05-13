@@ -12,7 +12,7 @@ export default function LandingPage() {
           <h4>bug them bugs!</h4>
         </div>
       </div>
-      <div className="lg:h-[750px] sm:h-[215px] xs:h-[90px]">
+      <div className="lg:h-[760px] sm:h-[245px] xs:h-[90px]">
         <BugCanvas />
       </div>
       <div className="px-10">hello</div>
