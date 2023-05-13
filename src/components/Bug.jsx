@@ -1,57 +1,75 @@
 import React from "react";
 import { Suspense } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Preload, useGLTF, Stage } from "@react-three/drei";
 import CanvasLoader from "./CanvasLoader";
-import { useRef } from "react";
-import { Mesh } from "three";
+import { useEffect, useState } from "react";
 
-function Bug() {
-  const meshRef = useRef < Mesh > null;
-
-  useFrame(() => {
-    if (!meshRef.current) {
-      return;
-    }
-
-    meshRef.current.rotation.x += 0.01;
-    meshRef.current.rotation.y += 0.01;
-  });
-  const bug = useGLTF("./scene.gltf");
+function Bug({ isMobile }) {
+  const bug = useGLTF("./free_lowpoly_ladybug/scene.gltf");
   return (
     <mesh>
-      <hemisphereLight intensity={0.15} groundColor="black" />
-      <spotLight scale={2.5} position-y={0} rotation-y={0} />
-      {/* position={[-4, 50, 10]}
+      <ambientLight intensity={1} />
+      <hemisphereLight intensity={1} groundColor="black" />
+      <spotLight
+        //scale={2.5} position-y={0} rotation-y={0} />
+        position={[-4, 10, 6]}
         angle={0.12}
         penumbra={1}
-        intensity={1}
+        intensity={10}
         castShadow
         shadow-mapSize={1024}
-      /> */}
-      <pointLight intensity={1} />
-      <primitive object={bug.scene} scale={4} position={[0, -1, 0]} />
+        
+      />
+      <pointLight intensity={3}/>
+      <primitive object={bug.scene} scale={3} position={[0, -5, -1]} />
     </mesh>
   );
 }
 
 const BugCanvas = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Add a listener for changes to the screen size
+    const mediaQuery = window.matchMedia("(max-width: 500px)");
+
+    // Set the initial value of the `isMobile` state variable
+    setIsMobile(mediaQuery.matches);
+
+    // Define a callback function to handle changes to the media query
+    const handleMediaQueryChange = (event) => {
+      setIsMobile(event.matches);
+    };
+
+    // Add the callback function as a listener for changes to the media query
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    // Remove the listener when the component is unmounted
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
   return (
     <Canvas
       frameloop="demand"
+      shadows
+      dpr={[1, 2]}
       camera={{ fov: 45, near: 0.1, far: 200, position: [-4, 3, 6] }}
       gl={{ preserveDrawingBuffer: true }}
-      dpr={[1, 2]}
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           autoRotate
+          autoRotateSpeed={2}
           enableZoom={false}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
-        <Bug />
-      </Suspense>
+
+          <Bug isMobile={isMobile} />
+        
+        </Suspense>
       <Preload all />
     </Canvas>
   );
